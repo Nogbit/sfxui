@@ -1,9 +1,12 @@
 <html>
+<head>
+  <style>body {margin:0px;padding:0px;}</style>
+</head>
 <body bgcolor="#3e4d4f">
   <script src="/src.a2b27638.js"></script>
   <div id="drawing"></div>
   <script>var draw = SVG('drawing').size(300, 300);
-draw.circulararc({
+var arc1 = draw.circulararc({
   min: -20,
   max: 20,
   setting: 7,
@@ -11,18 +14,38 @@ draw.circulararc({
   radius: 50,
   fill: 'line',
   mode: 'half',
-  lineColor: 'yellow',
+  lineColor: 'blue',
   lineWidth: 6
-});
-var arc = draw.circulararc({
+}).move(10, 10);
+var arc2 = draw.circulararc({
   min: 0,
   max: 100,
-  setting: 75,
-  radius: 90,
+  setting: 100,
+  radius: 50,
   lineColor: 'yellow',
-  lineWidth: 8
-}).move(100, 100);
-var x = 5;
-draw.rect(300, 100).move(500, 100).fill('#f06');</script>
+  lineWidth: 10
+}).on('settingChanged', function (e) {
+  console.log('it changed yo to ', e.detail);
+}).move(50, 50);
+setTimeout(function () {
+  //arc1.update(-18);
+  arc2.update(10);
+  arc1.update(2);
+}, 2000);
+setTimeout(function () {
+  //arc1.update(-18);
+  arc2.update(50);
+  arc1.update(-19);
+}, 3000);
+setTimeout(function () {
+  //arc1.update(-18);
+  arc2.update(89);
+  arc1.update(19);
+}, 4000);
+setTimeout(function () {
+  //arc1.update(-18);
+  arc2.update(25);
+  arc1.update(10);
+}, 5000);</script>
 </body>
 </html>

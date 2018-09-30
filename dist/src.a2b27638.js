@@ -5743,10 +5743,25 @@ function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
     x: centerX + radius * Math.cos(angleInRadians),
     y: centerY + radius * Math.sin(angleInRadians)
   };
+} // Copied from  svg.js/src/helpers.js since it's not exposed via SVG
+// Calculate proportional width and height values when necessary
+
+
+function proportionalSize(element, width, height) {
+  if (width == null || height == null) {
+    var box = element.bbox();
+    if (width == null) width = box.width / box.height * height;else if (height == null) height = box.height / box.width * width;
+  }
+
+  return {
+    width: width,
+    height: height
+  };
 }
 
 var _default = {
   init: init,
+  proportionalSize: proportionalSize,
   polarToCartesian: polarToCartesian
 };
 exports.default = _default;
@@ -5802,10 +5817,20 @@ var _default = function _default() {
       setting: function setting(val) {
         return this.attr('setting', val);
       },
+      move: function move(x, y) {
+        this.attr('lastMovX', x);
+        this.attr('lastMovY', y);
+        return this.attr('d', this.array().move(x, y));
+      },
       plot: function plot(d) {
         if (d == null) {
-          var x = this.attr('x') + this.attr('radius') + this.attr('lineWidth');
-          var y = this.attr('y') + this.attr('radius') + this.attr('lineWidth');
+          var x = this.attr('x') + this.attr('radius');
+          var y = this.attr('y') + this.attr('radius');
+
+          if (this.attr('lastMovX')) {
+            x += this.attr('lastMovX');
+            y += this.attr('lastMovY');
+          }
 
           var start = _util.default.polarToCartesian(x, y, this.attr('radius'), this.angle());
 
@@ -5821,13 +5846,18 @@ var _default = function _default() {
         //var denomral = (normal * (max - min) + min);
         var normal = (this.attr('setting') - this.attr('min')) / (this.attr('max') - this.attr('min'));
         return 180 * normal - 90;
+      },
+      update: function update(newValaue) {
+        this.attr('setting', newValaue);
+        this.plot();
+        this.fire('settingChanged', newValaue);
       }
     },
     construct: {
       circulararc: function circulararc(config) {
-        // TO DO...pass onValChange event to the constructor as well
-        //return this.put(new SVG.CircularArc(config)).plot();
-        return this.put(new _svg.default.CircularArc()).init(config).plot();
+        // move it in half of the stroke width
+        var halfStroke = config.lineWidth / 2;
+        return this.put(new _svg.default.CircularArc()).init(config).plot().move(halfStroke, halfStroke);
       }
     }
   });
@@ -5875,7 +5905,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37941" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37239" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

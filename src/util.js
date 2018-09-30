@@ -11,7 +11,26 @@ function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
   };
 }
 
+// Copied from  svg.js/src/helpers.js since it's not exposed via SVG
+// Calculate proportional width and height values when necessary
+function proportionalSize(element, width, height) {
+  if (width == null || height == null) {
+    var box = element.bbox()
+
+    if (width == null)
+      width = box.width / box.height * height
+    else if (height == null)
+      height = box.height / box.width * width
+  }
+
+  return {
+    width:  width,
+    height: height
+  }
+}
+
 export default {
   init,
+  proportionalSize,
   polarToCartesian
 };
