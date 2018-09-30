@@ -6,7 +6,7 @@
 
     var draw = SVG('drawing').size(300, 300)
 
-    var dial = draw.CircularArc({ 
+    draw.circulararc({ 
         min: -20,
         max: 20,
         setting: 7,
@@ -15,8 +15,19 @@
         fill: 'line',
         mode: 'half',
         lineColor: 'yellow',
-        lineWidth: 6,
-    });
+        lineWidth: 6
+    })
+
+    var arc = draw.circulararc({ 
+        min: 0,
+        max: 100,
+        setting: 75,
+        radius: 90,
+        lineColor: 'yellow',
+        lineWidth: 8,
+    }).move(100,100)
+    var x = 5;
+    draw.rect(300, 100).move(500, 100).fill('#f06');
 </script>
 </body>
 </html>
