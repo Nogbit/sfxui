@@ -1,0 +1,22 @@
+<html>
+<body bgcolor="#3e4d4f">
+  <script src="./src/index.js"></script>
+  <div id="drawing"></div>
+  <script>
+
+    var draw = SVG('drawing').size(300, 300)
+
+    var dial = draw.CircularArc({ 
+        min: -20,
+        max: 20,
+        setting: 7,
+        step: 1,
+        radius: 50,
+        fill: 'line',
+        mode: 'half',
+        lineColor: 'yellow',
+        lineWidth: 6,
+    });
+</script>
+</body>
+</html>
