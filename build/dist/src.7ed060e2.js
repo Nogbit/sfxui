@@ -104,7 +104,47 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({"node_modules/svg.js/dist/svg.js":[function(require,module,exports) {
+})({"../src/util.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function init() {
+  console.log('src/util.js imported with globbed export');
+}
+
+function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+  var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+  return {
+    x: centerX + radius * Math.cos(angleInRadians),
+    y: centerY + radius * Math.sin(angleInRadians)
+  };
+} // Copied from  svg.js/src/helpers.js since it's not exposed via SVG
+// Calculate proportional width and height values when necessary
+
+
+function proportionalSize(element, width, height) {
+  if (width == null || height == null) {
+    var box = element.bbox();
+    if (width == null) width = box.width / box.height * height;else if (height == null) height = box.height / box.width * width;
+  }
+
+  return {
+    width: width,
+    height: height
+  };
+}
+
+var _default = {
+  init: init,
+  proportionalSize: proportionalSize,
+  polarToCartesian: polarToCartesian
+};
+exports.default = _default;
+},{}],"../node_modules/svg.js/dist/svg.js":[function(require,module,exports) {
 var define;
 /*!
 * svg.js - A lightweight library for manipulating and animating SVG.
@@ -5708,64 +5748,7 @@ if (typeof window.CustomEvent !== 'function') {
 return SVG
 
 }));
-},{}],"src/main.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _svg = _interopRequireDefault(require("svg.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = function _default() {
-  console.log('main.js imported with SVG.Rect = ', _svg.default.Rect);
-};
-
-exports.default = _default;
-},{"svg.js":"node_modules/svg.js/dist/svg.js"}],"src/util.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-function init() {
-  console.log('src/util.js imported with globbed export');
-}
-
-function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
-  var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
-  return {
-    x: centerX + radius * Math.cos(angleInRadians),
-    y: centerY + radius * Math.sin(angleInRadians)
-  };
-} // Copied from  svg.js/src/helpers.js since it's not exposed via SVG
-// Calculate proportional width and height values when necessary
-
-
-function proportionalSize(element, width, height) {
-  if (width == null || height == null) {
-    var box = element.bbox();
-    if (width == null) width = box.width / box.height * height;else if (height == null) height = box.height / box.width * width;
-  }
-
-  return {
-    width: width,
-    height: height
-  };
-}
-
-var _default = {
-  init: init,
-  proportionalSize: proportionalSize,
-  polarToCartesian: polarToCartesian
-};
-exports.default = _default;
-},{}],"src/circularArc.js":[function(require,module,exports) {
+},{}],"../src/circularArc.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5864,21 +5847,15 @@ var _default = function _default() {
 };
 
 exports.default = _default;
-},{"./util":"src/util.js","svg.js":"node_modules/svg.js/dist/svg.js"}],"src/index.js":[function(require,module,exports) {
+},{"./util":"../src/util.js","svg.js":"../node_modules/svg.js/dist/svg.js"}],"../src/index.js":[function(require,module,exports) {
 "use strict";
-
-var _main = _interopRequireDefault(require("./main"));
-
-var _util = _interopRequireDefault(require("./util"));
 
 var _circularArc = _interopRequireDefault(require("./circularArc"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _main.default)();
 (0, _circularArc.default)();
-console.log(_util.default.init());
-},{"./main":"src/main.js","./util":"src/util.js","./circularArc":"src/circularArc.js"}],"../../../../.nvm/versions/node/v10.8.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./circularArc":"../src/circularArc.js"}],"../../../../../.nvm/versions/node/v10.8.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -5905,7 +5882,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37239" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43579" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
@@ -6047,5 +6024,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},["../../../../.nvm/versions/node/v10.8.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
-//# sourceMappingURL=/src.a2b27638.map
+},{}]},{},["../../../../../.nvm/versions/node/v10.8.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/index.js"], "sfxui")
+//# sourceMappingURL=/src.7ed060e2.map

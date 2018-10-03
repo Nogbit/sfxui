@@ -2,11 +2,21 @@
   "name": "starter",
   "version": "1.0.0",
   "description": "",
-  "scripts": {},
+  "scripts": {
+    "dev": "parcel html/dev.html --out-dir build/dist --global sfxui",
+    "test": "parcel html/test.html --port 5678 --out-dir build/test & node test/runner.js && npm run --silent posttest",
+    "posttest": "fuser -k -TERM -n tcp 5678 > /dev/null 2>&1 || true"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^4.2.0",
+    "cssnano": "^4.1.4",
+    "mocha": "^5.2.0",
+    "mocha-headless-chrome": "^2.0.1"
+  },
+  "dependencies": {
     "svg.js": "^2.6.6"
   }
 }
