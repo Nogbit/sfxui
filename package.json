@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "parcel html/dev.html --out-dir build/dist --global sfxui",
+    "dev": "parcel html/dev.html --out-dir build/dist --out-file sfxui.html --global sfxui",
     "test": "parcel html/test.html --port 5678 --out-dir build/test & node test/runner.js && npm run --silent posttest",
-    "posttest": "fuser -k -TERM -n tcp 5678 > /dev/null 2>&1 || true"
+    "posttest": "fuser -k -TERM -n tcp 5678 > /dev/null 2>&1 || true",
+    "build": "npm run lint && npm run package",
+    "lint": "./node_modules/.bin/eslint src/* test/*",
+    "package": "parcel build html/dev.html --out-dir build/dist --out-file sfxui.html --global sfxui"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +16,12 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "cssnano": "^4.1.4",
+    "eslint": "^5.6.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
     "mocha": "^5.2.0",
     "mocha-headless-chrome": "^2.0.1"
   },

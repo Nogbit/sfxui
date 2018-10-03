@@ -1,30 +1,31 @@
-function init() {
-  console.log('src/util.js imported with globbed export');
+function init () {
+  console.log('src/util.js imported with globbed export')
 }
 
-function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
-  var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
+function polarToCartesian (centerX, centerY, radius, angleInDegrees) {
+  let angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0
 
   return {
     x: centerX + (radius * Math.cos(angleInRadians)),
     y: centerY + (radius * Math.sin(angleInRadians))
-  };
+  }
 }
 
 // Copied from  svg.js/src/helpers.js since it's not exposed via SVG
 // Calculate proportional width and height values when necessary
-function proportionalSize(element, width, height) {
+function proportionalSize (element, width, height) {
   if (width == null || height == null) {
-    var box = element.bbox()
+    let box = element.bbox()
 
-    if (width == null)
+    if (width == null) {
       width = box.width / box.height * height
-    else if (height == null)
+    } else if (height == null) {
       height = box.height / box.width * width
+    }
   }
 
   return {
-    width:  width,
+    width: width,
     height: height
   }
 }
@@ -33,4 +34,4 @@ export default {
   init,
   proportionalSize,
   polarToCartesian
-};
+}

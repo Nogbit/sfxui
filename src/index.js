@@ -1,3 +1,3 @@
-import circularArc from './circularArc';
+import circularArc from './circularArc'
 
-circularArc();
+circularArc()

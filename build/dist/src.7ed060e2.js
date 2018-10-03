@@ -129,7 +129,12 @@ function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
 function proportionalSize(element, width, height) {
   if (width == null || height == null) {
     var box = element.bbox();
-    if (width == null) width = box.width / box.height * height;else if (height == null) height = box.height / box.width * width;
+
+    if (width == null) {
+      width = box.width / box.height * height;
+    } else if (height == null) {
+      height = box.height / box.width * width;
+    }
   }
 
   return {
@@ -5819,14 +5824,14 @@ var _default = function _default() {
 
           var end = _util.default.polarToCartesian(x, y, this.attr('radius'), this.attr('startAngle'));
 
-          var largeArcFlag = this.angle() - this.attr('startAngle') <= 180 ? "0" : "1";
-          d = ["M", start.x, start.y, "A", this.attr('radius'), this.attr('radius'), 0, largeArcFlag, 0, end.x, end.y].join(" ");
+          var largeArcFlag = this.angle() - this.attr('startAngle') <= 180 ? '0' : '1';
+          d = ['M', start.x, start.y, 'A', this.attr('radius'), this.attr('radius'), 0, largeArcFlag, 0, end.x, end.y].join(' ');
         }
 
-        return this.clear().attr('d', typeof d == 'string' ? d : this._array = new _svg.default.PathArray(d));
+        return this.clear().attr('d', typeof d === 'string' ? d : this._array = new _svg.default.PathArray(d));
       },
       angle: function angle() {
-        //var denomral = (normal * (max - min) + min);
+        // var denomral = (normal * (max - min) + min);
         var normal = (this.attr('setting') - this.attr('min')) / (this.attr('max') - this.attr('min'));
         return 180 * normal - 90;
       },
@@ -5882,7 +5887,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43579" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36259" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
