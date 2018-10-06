@@ -7,15 +7,16 @@
   <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
 </head>
 <body bgcolor="#3e4d4f">
+  <div id="drawing"></div>
   <script src="../src/index.js"></script>
   <div id="mocha"></div>
   <script src="../node_modules/mocha/mocha.js"></script>
   <script src="../node_modules/chai/chai.js"></script>
   <script>mocha.setup('bdd');</script>
-  <div id="drawing"></div>
   <script>
     var draw = SVG('drawing').size(300, 300)
   </script>
+  <script src="../test/specs/sfxui.js"></script>
   <script src="../test/specs/circulararc.js"></script>
   <script>mocha.run();</script>
 </body>

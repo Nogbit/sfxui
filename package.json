@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "pre-commit": "npm run lint && npm run test && npm run build",
     "dev": "parcel html/dev.html --out-dir build/dist --out-file sfxui.html --global sfxui",
     "test": "parcel html/test.html --port 5678 --out-dir build/test & node test/runner.js && npm run --silent posttest",
     "posttest": "fuser -k -TERM -n tcp 5678 > /dev/null 2>&1 || true",
@@ -22,6 +23,7 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
+    "husky": "^1.1.1",
     "mocha": "^5.2.0",
     "mocha-headless-chrome": "^2.0.1"
   },

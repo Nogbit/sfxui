@@ -5774,78 +5774,67 @@ var _default = function _default() {
     extend: {
       init: function init(config) {
         // To Do...make sure min < max, initial is <= max and >= min
-        this.setting(config.setting);
-        this.max(config.max);
-        this.min(config.min);
-        this.radius(config.radius);
-        this.lineWidth(config.lineWidth);
-        this.startAngle(-90.0); // default colors
+        // The presentation of the arc is not designed to be changed after creation
+        this.value = config.value;
+        this.max = config.max;
+        this.min = config.min;
+        this.radius = config.radius;
+        this.lineWidth = config.lineWidth;
+        this.startAngle = -90.0;
+        this.lastMove = {
+          x: 0,
+          y: 0 // default colors
 
+        };
         this.attr('fill', '#000');
         this.attr('fill-opacity', 0);
         this.attr('stroke', config.lineColor);
         this.attr('stroke-width', config.lineWidth);
         return this;
       },
-      max: function max(val) {
-        return this.attr('max', val);
-      },
-      min: function min(val) {
-        return this.attr('min', val);
-      },
-      radius: function radius(val) {
-        return this.attr('radius', val);
-      },
-      lineWidth: function lineWidth(val) {
-        return this.attr('lineWidth', val);
-      },
-      startAngle: function startAngle(val) {
-        return this.attr('startAngle', val);
-      },
-      setting: function setting(val) {
-        return this.attr('setting', val);
-      },
       move: function move(x, y) {
-        this.attr('lastMovX', x);
-        this.attr('lastMovY', y);
-        return this.attr('d', this.array().move(x, y));
+        this.lastMove = {
+          x: x,
+          y: y // when less than 50% of radius, the arcs bbox shrinks in size so we need to shift the path back down the Y axis
+
+        };
+
+        if (this.normalizedValue < 0.5) {
+          y += this.radius - this.height();
+        }
+
+        return this.attr('d', this.array().move(x + this.lineWidth / 2, y + this.lineWidth / 2));
       },
       plot: function plot(d) {
         if (d == null) {
-          var x = this.attr('x') + this.attr('radius');
-          var y = this.attr('y') + this.attr('radius');
+          var x = this.radius + this.lineWidth / 2;
+          var y = this.radius + this.lineWidth / 2;
 
-          if (this.attr('lastMovX')) {
-            x += this.attr('lastMovX');
-            y += this.attr('lastMovY');
-          }
+          var start = _util.default.polarToCartesian(x, y, this.radius, this.angle());
 
-          var start = _util.default.polarToCartesian(x, y, this.attr('radius'), this.angle());
+          var end = _util.default.polarToCartesian(x, y, this.radius, this.startAngle);
 
-          var end = _util.default.polarToCartesian(x, y, this.attr('radius'), this.attr('startAngle'));
-
-          var largeArcFlag = this.angle() - this.attr('startAngle') <= 180 ? '0' : '1';
-          d = ['M', start.x, start.y, 'A', this.attr('radius'), this.attr('radius'), 0, largeArcFlag, 0, end.x, end.y].join(' ');
+          var largeArcFlag = this.angle() - this.startAngle <= 180 ? '0' : '1';
+          d = ['M', start.x, start.y, 'A', this.radius, this.radius, 0, largeArcFlag, 0, end.x, end.y].join(' ');
         }
 
         return this.clear().attr('d', typeof d === 'string' ? d : this._array = new _svg.default.PathArray(d));
       },
       angle: function angle() {
         // var denomral = (normal * (max - min) + min);
-        var normal = (this.attr('setting') - this.attr('min')) / (this.attr('max') - this.attr('min'));
-        return 180 * normal - 90;
+        this.normalizedValue = (this.value - this.min) / (this.max - this.min);
+        return 180 * this.normalizedValue - 90;
       },
       update: function update(newValaue) {
-        this.attr('setting', newValaue);
-        this.plot();
-        this.fire('settingChanged', newValaue);
+        this.value = newValaue;
+        this.plot().move(this.lastMove.x, this.lastMove.y);
+        this.fire('valueChanged', this.value);
+        return this;
       }
     },
     construct: {
-      circulararc: function circulararc(config) {
-        // move it in half of the stroke width
-        var halfStroke = config.lineWidth / 2;
-        return this.put(new _svg.default.CircularArc()).init(config).plot().move(halfStroke, halfStroke);
+      circularArc: function circularArc(config) {
+        return this.put(new _svg.default.CircularArc()).init(config).plot();
       }
     }
   });
@@ -5887,7 +5876,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36259" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36483" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
