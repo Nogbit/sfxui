@@ -1,7 +1,7 @@
 {
-  "name": "starter",
-  "version": "1.0.0",
-  "description": "",
+  "name": "sfxui",
+  "version": "0.1.0",
+  "description": "A library of SVG user interface components for HTML based DAW's",
   "scripts": {
     "pre-commit": "npm run lint && npm run test && npm run build",
     "dev": "parcel html/dev.html --out-dir build/dist --out-file sfxui.html --global sfxui",
@@ -11,9 +11,11 @@
     "lint": "./node_modules/.bin/eslint src/* test/*",
     "package": "parcel build html/dev.html --out-dir build/dist --out-file sfxui.html --global sfxui"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Marcellus Miles",
+  "license": "MIT",
+  "dependencies": {
+    "svg.js": "^2.6.6"
+  },
   "devDependencies": {
     "chai": "^4.2.0",
     "cssnano": "^4.1.4",
@@ -26,8 +28,5 @@
     "husky": "^1.1.1",
     "mocha": "^5.2.0",
     "mocha-headless-chrome": "^2.0.1"
-  },
-  "dependencies": {
-    "svg.js": "^2.6.6"
   }
 }
