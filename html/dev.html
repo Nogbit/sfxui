@@ -11,35 +11,72 @@
 
     var draw = SVG('drawing').size(300, 300)
 
+
     let arc2 = draw.circularArc({ 
         min: -30,
         max: 30,
         value: 30,
         radius: 50,
-        lineColor: '#F9AE30',
-        lineWidth: 10
-    }).move(30,30)
+        valueColor: '#F9AE30',
+        valueWidth: 10
+    }).move(300,300)
 
-    setTimeout(function() {
-      console.log(arc2.attr('d'))
-      console.log(arc2.bbox().x, arc2.bbox().y)
-      arc2.move(10,10);
-    }, 2000);
-    setTimeout(function() {
-      console.log(arc2.attr('d'))
-      console.log(arc2.bbox().x, arc2.bbox().y)
-      arc2.move(20,20);
-    }, 3000);
-    setTimeout(function() {
-      console.log(arc2.attr('d'))
-      console.log(arc2.bbox().x, arc2.bbox().y)
-      arc2.move(30,30);
-    }, 4000);
-    setTimeout(function() {
-      console.log(arc2.attr('d'))
-      console.log(arc2.bbox().x, arc2.bbox().y)
-      arc2.move(40,40);
-    }, 5000);
+    let dial = draw.dial({ 
+        min: -30,
+        max: 30,
+        radius: 25,
+        value: 21,
+        valueColor: '#F9AE30',
+        valueWidth: 3,
+
+        valueTextUnit: 'db',
+        valueTextFont: { 
+          fill: '#F9AE30', 
+          family: 'Inconsolata',
+          size: 12,
+          anchor: 'middle' 
+        },
+
+        labelText: 'Frequency',
+        labelTextPadding: 10,
+        labelTextFont: { 
+          fill: '#F9AE30', 
+          family: 'Inconsolata',
+          size: 14,
+          anchor: 'middle' 
+        },
+
+        backgroundColor: `grey`,
+    }).move(100,100)
+
+    //var circle = draw.circle(50).fill('#fff')
+    //var circle2 = draw.circle(20).fill('#fff')
+    //var g = draw.group()
+    //g.add(circle)
+    //g.add(circle2)
+    //g.add(arc2)
+    //g.move(100,100)
+
+    //setTimeout(function() {
+    //  console.log(arc2.attr('d'))
+    //  console.log(arc2.bbox().x, arc2.bbox().y)
+    //  arc2.move(10,10);
+    //}, 2000);
+    //setTimeout(function() {
+    //  console.log(arc2.attr('d'))
+    //  console.log(arc2.bbox().x, arc2.bbox().y)
+    //  arc2.move(20,20);
+    //}, 3000);
+    //setTimeout(function() {
+    //  console.log(arc2.attr('d'))
+    //  console.log(arc2.bbox().x, arc2.bbox().y)
+    //  arc2.move(30,30);
+    //}, 4000);
+    //setTimeout(function() {
+    //  console.log(arc2.attr('d'))
+    //  console.log(arc2.bbox().x, arc2.bbox().y)
+    //  arc2.move(40,40);
+    //}, 5000);
   </script>
 </body>
 </html>

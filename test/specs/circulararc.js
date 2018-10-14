@@ -5,8 +5,8 @@ let basicConfig = {
   max: 20,
   value: 0,
   radius: 150,
-  lineColor: 'red',
-  lineWidth: 10
+  valueColor: 'red',
+  valueWidth: 10
 }
 
 beforeEach(function () {

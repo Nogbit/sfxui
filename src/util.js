@@ -30,8 +30,13 @@ function proportionalSize (element, width, height) {
   }
 }
 
+function clamp (num, min, max) {
+  return num <= min ? min : num >= max ? max : num
+}
+
 export default {
   init,
   proportionalSize,
-  polarToCartesian
+  polarToCartesian,
+  clamp
 }

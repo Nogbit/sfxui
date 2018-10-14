@@ -16,15 +16,15 @@ export default () => {
         this.max = config.max
         this.min = config.min
         this.radius = config.radius
-        this.lineWidth = config.lineWidth
+        this.valueWidth = config.valueWidth
         this.startAngle = -90.0
         this.lastMove = { x: 0, y: 0 }
 
         // default colors
         this.attr('fill', '#000')
         this.attr('fill-opacity', 0)
-        this.attr('stroke', config.lineColor)
-        this.attr('stroke-width', config.lineWidth)
+        this.attr('stroke', config.valueColor)
+        this.attr('stroke-width', config.valueWidth)
         return this
       },
 
@@ -35,13 +35,13 @@ export default () => {
         if (this.normalizedValue < 0.5) {
           y += this.radius - this.height()
         }
-        return this.attr('d', this.array().move(x + this.lineWidth / 2, y + this.lineWidth / 2))
+        return this.attr('d', this.array().move(x + this.valueWidth / 2, y + this.valueWidth / 2))
       },
 
       plot: function (d) {
         if (d == null) {
-          let x = this.radius + this.lineWidth / 2
-          let y = this.radius + this.lineWidth / 2
+          let x = this.radius + this.valueWidth / 2
+          let y = this.radius + this.valueWidth / 2
 
           let start = util.polarToCartesian(x, y, this.radius, this.angle())
           let end = util.polarToCartesian(x, y, this.radius, this.startAngle)
@@ -57,13 +57,16 @@ export default () => {
       },
 
       angle: function () {
-        // var denomral = (normal * (max - min) + min);
         this.normalizedValue = (this.value - this.min) / (this.max - this.min)
         return (180 * this.normalizedValue) - 90
       },
 
-      update: function (newValaue) {
-        this.value = newValaue
+      update: function (newValaue, ratio = false) {
+        if (ratio) {
+          // denormalize
+          newValaue = (newValaue * (this.max - this.min) + this.min)
+        }
+        this.value = util.clamp(newValaue, this.min, this.max)
         this.plot().move(this.lastMove.x, this.lastMove.y)
         this.fire('valueChanged', this.value)
         return this

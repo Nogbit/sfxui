@@ -76,4 +76,4 @@ Right now, you have no reason really, it's early days, go use NexusUI. NexusUI i
 
 ## Contributing
 
-Sure if you like, use the npm scripts to get going, `npm run dev` serves up a watched `html/dev/.html` which is actually `build/dist/sfxui.html`. There are of course integrated tests as well in `test/spec`. Much more to come here as this library grows more mature.
+Sure if you like, use the npm scripts to get going, `npm run dev` serves up a watched `html/dev.html`. There are of course integrated tests as well in `test/spec`. Much more to come here as this library grows more mature.
