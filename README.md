@@ -21,7 +21,7 @@ As of right now, SVG.JS comes with SFXUI and is not installed seperately (that w
 npm install sfxui
 ```
 
-2. Since SFXUI extends SVG.js, some familariaty with [SVG.js is required](http://svgjs.com/getting-started/). Create an HTML document as you would with SVG.js and an element you can draw to.
+2. Since SFXUI extends SVG.js, some familariaty with [SVG.js is required](https://svgdotjs.github.io/docs/3.0/). Create an HTML document as you would with SVG.js and an element you can draw to.
 
 ```HTML
 <!DOCTYPE html>
