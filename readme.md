@@ -1,8 +1,12 @@
-<p align="center">
-  <img src="docs/logo.png?raw=true">
-</p>
+# 0.2.0
 
-[![David Dependency Status](https://david-dm.org/nogbit/sfxui.svg)](https://david-dm.org/nogbit/sfxui) [![npm package](https://img.shields.io/npm/v/sfxui.svg)](https://www.npmjs.com/package/sfxui)
+Under development....
+
+    npm install
+
+    npm run build
+
+Then use with the `sfxui-playground` repo.
 
 ## Features/Goals
 
